@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="../../static/Substitute_Platform/img/logo_pur_beurre-favicon.png"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    {% load static %}
+
+    <!-- move this part to css file -->
+    <style>
+      @font-face {
+        font-family: icomoon;
+        src: url('../../static/Substitute_Platform/fonts/icomoon.svg') format('svg'),
+             url('../../static/Substitute_Platform/fonts/icomoon.ttf') format('truetype');
+      }
+
+      .vert_center {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .center_carrot
+      {
+        width: 6%;
+      }
+
+      h1, h2 {
+        font-family: "Open Sans", sans-serif;
+      }
+
+      h1 {
+        color: #C45525;;
+      }
+
+      .wrapper {
+        display: relative;
+      }
+
+      .nutriscore {
+        position: relative;
+        top: -40px;
+        right: -20px;
+        font-size: 60px;
+        color: #86EBE6;
+        font-weight: bold;
+        background-color: #345A61;
+        margin: 8px;
+        width:80px;
+        height:80px;
+        text-align:center;
+        border-radius:80px;
+      }
+
+      .product_link {
+        color: #86EBE6;
+        font-size: 150%;
+      }
+
+      .link_subscribe {
+        color:white;
+      }
+
+      .product_link:hover {
+        color: white;
+      }
+
+      .nutri_details {
+        top: 0px;
+      }
+
+      h2, .card-text {
+        color: #345A61;
+      }
+
+      a, p, figcaption {
+        font-family: "Scope One", sans-serif;
+      }
+
+      p, figcaption {
+        font-size: 1.3em;
+      }
+
+      body {
+          background-color: #86EBE6;
+      }
+
+      .logo {
+        padding-top: 10%;
+      }
+
+      address > h2 {
+        font-size: 2em;
+        margin-left: 10%;
+        font-family: icomoon;
+      }
+
+      li > a {
+        font-size: 135%;
+        font-family: icomoon;
+      }
+
+      .barre_nav::-webkit-input-placeholder {
+         text-align: center;
+         font-size: 1.2em;
+         font-family: "Scope One", sans-serif;
+      }
+
+      .search {
+        padding-top: 4% !important;
+        padding-bottom: 4% !important;
+        margin-bottom: 0% !important;
+      }
+
+      .textsaved {
+        display: none;
+      }
+
+      i {
+        margin-right: 5px;
+      }
+
+      .card-img-top {
+        border-width: 3px;
+        border-color: #345A61;
+        border-style: solid;
+      }
+
+      .checkbox {
+        font-size: 4em;
+      }
+
+      .card-text {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      .alignement {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .carrot {
+        margin-right: 10%;
+        width: 80%;
+        float: right;
+      }
+
+      .nav-item {
+        float: right !important;
+      }
+
+      .base_footer {
+        color: #C45525;;
+        background-color: #E8A75D;
+        height:100px;
+      }
+
+      .nav>li>a:focus, .nav>li>a:hover {
+        background-color: #345A61;
+      }
+
+      .navbar {
+        background-color: #345A61;
+        font-size: 1.15em;
+      }
+
+      .navbar-brand {
+        color: #DE9440 !important;
+      }
+
+      .nav-link {
+        color: #E8A75D !important;
+      }
+
+      .barre_nav {
+        background-color: #C45525 !important;
+      }
+
+      input:focus {
+        color: black;
+      }
+
+      .navbar-brand {
+        font-weight: bold;
+      }
+
+      .part1_index {
+          background-image: url("{% static 'Substitute_Platform/img/ratatouille-11.jpg'%}");
+          background-size: cover;
+          background-repeat: no-repeat;
+      }
+
+      .need_opa {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      .barre_nav.form-control::placeholder {
+        color: white;
+      }
+
+      .myblock {
+        background-color: #eeeeee;
+      }
+
+      hr {
+        background-color: #345A61;
+        color: #345A61;
+        height: 1px;
+      }
+
+      footer a {
+        color: #C45525;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      body {
+        background-color: #86EBE6;
+      }
+
+      .card {
+        height: 50%;
+      }
+
+      .card-img-top {
+        width: auto;
+        max-width: 80%;
+        height: 80%;
+        vertical-align: middle;
+      }
+
+      .card-body {
+        height: 200px;
+      }
+
+      .imgProduct {
+        width: 1000px !important;
+      }
+
+      @media screen and (max-device-width: 1024px) {
+        .logo {
+          width: 15%;
+          padding-top: 5%;
+        }
+
+        .h2Row {
+          width: 90%;
+        }
+
+        .center_carrot
+        {
+          width: 24%;
+        }
+
+        .myNavbar {
+          /* margin-right: 15%; */
+          flex-direction: column;
+        }
+
+        .searchBar {
+          padding-left: 25%;
+          padding-top: 5%;
+        }
+
+        .brandLogo {
+          width: 40%;
+        }
+
+        .card-img-top {
+          width: 100%;
+          height: 70%;
+          max-width: 100%;
+        }
+
+        input[type="checkbox"]{
+          width: 20px; /*Desired width*/
+          height: 20px; /*Desired height*/
+        }
+
+        .form-check-label, .sizeSaved {
+          font-size: 1.7em;
+          padding-left: 3%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+    <header>
+    <nav class="navbar navbar-default" role="navigation">
+          <div class="row">
+            <div class=" col-lg-2 navbar-header vert_center">
+              <div class="row">
+                  <div class="col-lg-3">
+                    <img src="{% static 'Substitute_Platform/img/logo_pur_beurre.png' %}" alt="logo pur beurre" align="left" class="img-responsive logo"/>
+                  </div>
+                  <a class="navbar-brand" href="{% url 'Substitute_Platform:index' %}">Pur Beurre</a>
+                <!--add substitute_form template-->
+              </div>
+            </div>
+            <div class="col-lg-10 d-flex justify-content-end myNavbar">
+              <ul class="nav nav-pills">
+                <li class="nav-item vert_center">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'Substitute_Platform:disconnection' %}" class="nav-link" title="Déconnexion"><i class="fas fa-sign-out-alt"></i></a>
+                    {% else %}
+                    <a href="{% url 'Substitute_Platform:authentication' %}" class="nav-link" title="Connexion"><i class="fas fa-sign-in-alt"></i></a>
+                    {% endif %}
+                </li>
+                <li class="nav-item center_carrot">
+                    <!--Si connecté : lien vers mes substituts, autrement : page "me connecter"-->
+                    <a href="{% url 'Substitute_Platform:substitutes' %}" class="nav-link"><img src="{% static 'Substitute_Platform/img/carrot.png' %}" class="carrot" title="Mes Aliments"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'Substitute_Platform:account' %}" class="nav-link vert_center" title="Mon Compte"><i class="fas fa-user"></i></a>
+                </li>
+                <li class="nav-item col-xs-12 searchBar col-lg-3">
+                    <form class="text-center" action="{% url 'Substitute_Platform:substitutes_list' %}" method="get" accept-charset="utf-8">
+                      <div class="form-group search">
+                        <input id="searchForm" class="form-control barre_nav" name="query" placeholder="chercher">
+                      </div>
+                    </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+            <!-- /.navbar-collapse -->
+
+    </nav>
+  </header>
+  <div class="container-fluid">
+    <section class="row page-section">
+      {% block content %}{% endblock %}
+    </section>
+  </div>
+    <!--MENTIONS LEGALES : ICOMOON AND CO, VOIR CHARTE GRAPHIQUE-->
+    <footer class="page-footer fixed-bottom base_footer">
+      <hr/>
+            <div class="row">
+                <div class="col-lg-6 text-center">
+                  <!--todo AJOUTER VUE MENTIONS LEGALES ET CREER PAGE-->
+                  <a href="{% url 'Substitute_Platform:legal' %}" class="links">Mentions légales</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                  <a href="{% url 'Substitute_Platform:index' %}#contact" class="links">Contact</a>
+                </div>
+            </div>
+    </footer>
+    </div>
+
+  </body>
+</html>

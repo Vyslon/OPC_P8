@@ -1,0 +1,26 @@
+{% extends 'Substitute_Platform/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="col-lg-12 myblock">
+
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Produit substitué</th>
+          <th>Produit substituant</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for elt in substitutes %}
+      <tr>
+        <td><a href="{% url 'substitute:detail' elt.substituted_product.id %}">{{ elt.substituted_product.name }}</a></td>
+        <td><a href="{% url 'substitute:detail' elt.substituent_product.id %}">{{ elt.substituent_product.name }}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% endblock %}

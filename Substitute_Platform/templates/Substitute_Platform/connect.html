@@ -1,0 +1,32 @@
+{% extends 'Substitute_Platform/base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="col-lg-12 myblock">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+<form class="form-group" action="{% url 'substitute:authentication' %}" method="post">
+  {% csrf_token %}
+  <br/>
+  <div class="form-group {% if form.username.errors %}has-warning has-feedback{% endif %}">
+    <label for="{{ form.username.id_for_label }}" class="control-label">Nom d'utilisateur</label>
+    {{ form.username }}
+  </div>
+  <br/>
+  <div class="form-group {% if form.password.errors %}has-warning has-feedback{% endif %}">
+    <label for="{{ form.password.id_for_label }}" class="control-label">Mot de passe</label>
+    {{ form.password }}
+  </div>
+  <br/>
+
+  <button type="submit" class="btn btn-success center-block">Connexion</button>
+  <br/>
+  <br/>
+  <br/>
+  <p class="text-center">Vous n'avez pas encore de compte ? Inscrivez-vous !</p>
+  <button class="btn btn-success center-block"><a class="link_subscribe" href="{% url 'substitute:registration' %}">Inscription</a></button>
+
+</form>
+
+{% endblock %}

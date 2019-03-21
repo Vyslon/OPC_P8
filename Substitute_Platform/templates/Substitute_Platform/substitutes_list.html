@@ -1,0 +1,54 @@
+{% extends 'Substitute_Platform/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="col-lg-12 myblock">
+  <div class="row border-bottom" style="background-image:url({{ substituted.image_url }})">
+    <div class="col-lg-8 col-lg-offset-2 need_opa">
+      <h1 class="text-center">{{substituted.name}}</h1>
+    </div>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 need_opa col-sm-10">
+      <h2 class="text-center">Vous pouvez remplacer cet aliment par : </h2>
+    </div>
+  </div>
+  <br />
+  <br />
+  </div>
+  <div class="row rowSubstitutes">
+    {% for substituent in substituents %}
+    <div class="col-lg-3 col-lg-offset-1 col-sm-12">
+      <div class="card">
+        <div class="wrapper">
+          <a href="{{ substituent.url_openfoodfact }}"><img src="{{ substituent.image_url }}" class="card-img-top" alt="..."></a>
+          <p class="nutriscore">{{ substituent.nutrition_grade.upper }}</p>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ substituent.name }}</p>
+          {% if request.user.is_authenticated and substituent != None %}
+            <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
+
+            <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="post" accept-charset="utf-8" id="save-1" target="dummyframe">
+              {% csrf_token %}
+              <div class="form-group saveSubstitutes">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkbox-{{ forloop.counter }}" name="checkbox" value="{{ substituent.name }}" class="checkboxes">
+                  <label class="form-check-label" for="checkbox-{{ forloop.counter }}">
+                    Sauvegarder
+                  </label>
+                </div>
+                <!-- Sauvegarder -->
+                <p id="textsaved-1" class="hide sizeSaved"><i class="far fa-save"></i>Sauvegarder</p>
+                <input type="hidden" id="substituted" name="substituted_name" value="{{ substituted.name }}">
+                <input type="hidden" id="query" name="query_value" value="{{ request.GET.query }}">
+                <input type="hidden" id="cont" name="context" value="{{ context }}">
+              </div>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'Substitute_Platform/js/substitutes_list.js' %}"></script>
+{% endblock %}

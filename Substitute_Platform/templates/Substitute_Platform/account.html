@@ -1,0 +1,27 @@
+{% extends 'Substitute_Platform/base.html' %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="col-lg-12 myblock">
+  <div class="row" style="background-image: url('{% static 'Substitute_Platform/img/remy-4.jpg' %}');">
+    <div class="col-lg-8 col-lg-offset-2 need_opa">
+      <br/>
+      <br/>
+      <h1 class="text-center">Ahoy</h1>
+      <h1 class="text-center">{{ pseudo }} !</h1>
+      <br/>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+      <br/>
+      <br/>
+      <h2 class="text-center">Email : {{ email }}</h2>
+      <br/>
+      <br/>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
