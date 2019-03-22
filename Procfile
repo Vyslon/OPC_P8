@@ -1,1 +1,1 @@
-web: gunicorn Substitute_Platform.wsgi
+web: gunicorn pur_beurre_platform.wsgi
