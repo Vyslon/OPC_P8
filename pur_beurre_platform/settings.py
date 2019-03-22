@@ -39,10 +39,10 @@ SECRET_KEY = '4fg0(sm@)a+ej^agc4g86j8fw%p*%o*itw@6oed5r$2zqokz(#'
 # SECURITY WARNING: don't run with debug turned on in production!
 if  os.environ.get('ENV') == 'PRODUCTION':
     DEBUG = False
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['purbeurreplatform.herokuapp.com']
 else:
     DEBUG = True
-    ALLOWED_HOSTS = ['purbeurreplatform.herokuapp.com']
+    ALLOWED_HOSTS = ['localhost']
 #MODIFY ON PRODUCTION
 
 
