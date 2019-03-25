@@ -4,11 +4,13 @@ from Substitute_Platform.models import Categories, Products, platform_user
 from django.contrib.auth.models import User
 from django.contrib import auth
 
+
 class IndexPageTestCase(TestCase):
 
     def test_index_page(self):
         response = self.client.get(reverse('Substitute_Platform:index'))
         self.assertEqual(response.status_code, 200)
+
 
 class DetailsPageTestCase(TestCase):
 
@@ -17,20 +19,25 @@ class DetailsPageTestCase(TestCase):
             name='Chips nature maxi format',
             stores='',
             nutrition_grade='c',
-            url_openfoodfact='https://fr.openfoodfacts.org/produit/3168930010630/chips-nature-maxi-format-lay-s',
-            image_url='https://static.openfoodfacts.org/images/products/316/893/001/0630/front_fr.18.400.jpg',
+            url_openfoodfact=("https://fr.openfoodfacts.org/produit/"
+                              "3168930010630/chips-nature-maxi-format-lay-s"),
+            image_url=("https://static.openfoodfacts.org/images/products/"
+                       "316/893/001/0630/front_fr.18.400.jpg"),
         )
         self.product = Products.objects.get(name='Chips nature maxi format')
 
     def test_detail_page_returns_200(self):
         product_id = self.product.id
-        response = self.client.get(reverse('Substitute_Platform:detail', args=(product_id,)))
+        response = self.client.get(reverse('Substitute_Platform:detail',
+                                           args=(product_id,)))
         self.assertEqual(response.status_code, 200)
 
     def test_detail_page_returns_404(self):
         product_id = self.product.id + 1
-        response = self.client.get(reverse('Substitute_Platform:detail', args=(product_id,)))
+        response = self.client.get(reverse('Substitute_Platform:detail',
+                                           args=(product_id,)))
         self.assertEqual(response.status_code, 404)
+
 
 class SubstitutesListPageTestCase(TestCase):
 
@@ -88,17 +95,21 @@ class SubstitutesListPageTestCase(TestCase):
         prod6.categories.set([cat3])
 
     def test_SubstitutesList_page_returns_200(self):
-        response = self.client.get(reverse('Substitute_Platform:substitutes_list') + '?query=chips')
+        response = self.client.get(reverse(
+            'Substitute_Platform:substitutes_list') + '?query=chips')
         self.assertEqual(response.status_code, 200)
 
     def test_SubstitutesList_page_returns_404(self):
-        response = self.client.get(reverse('Substitute_Platform:substitutes_list') + '?query=coca')
+        response = self.client.get(reverse(
+            'Substitute_Platform:substitutes_list') + '?query=coca')
         self.assertEqual(response.status_code, 404)
+
 
 class AccountRegistrationAuthenticationPageTestCase(TestCase):
 
     def setUp(self):
-        user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        user = User.objects.create_user('temporary', 'temporary@gmail.com',
+                                        'temporary')
 
     def test_account_page_returns_200(self):
         self.client.login(username='temporary', password='temporary')
@@ -119,22 +130,27 @@ class AccountRegistrationAuthenticationPageTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_authentication_page_returns_200(self):
-        response = self.client.get(reverse('Substitute_Platform:authentication'))
+        response = self.client.get(reverse(
+            'Substitute_Platform:authentication'))
         self.assertEqual(response.status_code, 200)
 
     def test_authentication_page_returns_302(self):
         self.client.login(username='temporary', password='temporary')
-        response = self.client.get(reverse('Substitute_Platform:authentication'))
+        response = self.client.get(reverse(
+            'Substitute_Platform:authentication'))
         self.assertEqual(response.status_code, 302)
 
     def test_disconnection_connected_page_returns_302(self):
         self.client.login(username='temporary', password='temporary')
-        response = self.client.get(reverse('Substitute_Platform:disconnection'))
+        response = self.client.get(reverse(
+            'Substitute_Platform:disconnection'))
         self.assertEqual(response.status_code, 302)
 
     def test_disconnection_disconnected_page_returns_302(self):
-        response = self.client.get(reverse('Substitute_Platform:disconnection'))
+        response = self.client.get(reverse(
+            'Substitute_Platform:disconnection'))
         self.assertEqual(response.status_code, 302)
+
 
 class LegalNoticePageTestCase(TestCase):
 
@@ -142,11 +158,13 @@ class LegalNoticePageTestCase(TestCase):
         response = self.client.get(reverse('Substitute_Platform:legal'))
         self.assertEqual(response.status_code, 200)
 
+
 class MySubstitutesPageTestCase(TestCase):
 
     def setUp(self):
 
-        user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        user = User.objects.create_user('temporary', 'temporary@gmail.com',
+                                        'temporary')
 
     def test_MySubstitutes_page_returns_200(self):
         self.client.login(username='temporary', password='temporary')
@@ -156,6 +174,7 @@ class MySubstitutesPageTestCase(TestCase):
     def test_MySubstitutes_page_returns_302(self):
         response = self.client.get(reverse('Substitute_Platform:substitutes'))
         self.assertEqual(response.status_code, 302)
+
 
 class SaveSubstitutePageTestCase(TestCase):
 
@@ -175,19 +194,22 @@ class SaveSubstitutePageTestCase(TestCase):
             image_url='url',
         )
 
-        self.user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        self.user = User.objects.create_user('temporary', 'temporary@gmail.com',
+                                             'temporary')
 
     def test_new_substitute_is_saved(self):
         old_saved_substitutes = platform_user.objects.count()
         self.client.login(username='temporary', password='temporary')
         substituent_name = self.substituent_product.name
         substituted_name = self.substituted_product.name
-        response = self.client.post(reverse('Substitute_Platform:substitutes_list'), {
-            'checkbox' : substituent_name,
-            'substituted_name' : substituted_name,
+        response = self.client.post(reverse(
+            'Substitute_Platform:substitutes_list'), {
+            'checkbox': substituent_name,
+            'substituted_name': substituted_name,
         })
         new_saved_substitutes = platform_user.objects.count()
         self.assertEqual(new_saved_substitutes, old_saved_substitutes + 1)
+
 
 class RegisteringPageTestCase(TestCase):
 
@@ -201,27 +223,31 @@ class RegisteringPageTestCase(TestCase):
         password = self.password
         username = self.username
         email = self.email
-        response = self.client.post(reverse('Substitute_Platform:registration'), {
-            'password' : password,
-            'username' : username,
-            'email' : email,
+        response = self.client.post(reverse(
+            'Substitute_Platform:registration'), {
+            'password': password,
+            'username': username,
+            'email': email,
         })
         new_user_count = User.objects.count()
         user = auth.get_user(self.client)
         assert user.is_authenticated
         self.assertEqual(new_user_count, old_user_count + 1)
 
+
 class connectionPageTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        self.user = User.objects.create_user('temporary',
+                                             'temporary@gmail.com', 'temporary')
 
     def test_user_is_connected(self):
         password = 'temporary'
         username = 'temporary'
-        response = self.client.post(reverse('Substitute_Platform:authentication'), {
-            'username' : username,
-            'password' : password,
+        response = self.client.post(reverse(
+            'Substitute_Platform:authentication'), {
+            'username': username,
+            'password': password,
         })
         user = auth.get_user(self.client)
         assert user.is_authenticated

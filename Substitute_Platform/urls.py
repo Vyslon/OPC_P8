@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
-app_name="Substitute_Platform"
+app_name = "Substitute_Platform"
 
 urlpatterns = [
     url(r'^details/(?P<product_id>[0-9]+)/$', views.detail, name='detail'),

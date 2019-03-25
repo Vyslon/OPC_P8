@@ -4,12 +4,9 @@ from django.db import transaction
 import requests
 from django.db.utils import IntegrityError, DataError
 
-#TODO : DELETE categories_list_url_name ?
-#TODO :  "filters" ?
 
 class Command(BaseCommand):
     help = 'Update/Fulfill database content using OpenFoodFacts API'
-    #Don't delete anything
 
     def handle(self, *args, **options):
         url_categories = "https://fr.openfoodfacts.org/categories.json"
@@ -33,7 +30,8 @@ class Command(BaseCommand):
                 for nbProduct in range(0, nbByPages):
                     with transaction.atomic():
                         try:
-                            cat_for_prod = [Categories.objects.filter(name=products['products'][nbProduct]['categories_hierarchy'][0])[0],
+                            cat_for_prod = [Categories.objects.filter(
+                                name=products['products'][nbProduct]['categories_hierarchy'][0])[0],
                                 Categories.objects.filter(name=products['products'][nbProduct]['categories_hierarchy'][1])[0],
                                 Categories.objects.filter(name=products['products'][nbProduct]['categories_hierarchy'][2])[0],
                             ]
