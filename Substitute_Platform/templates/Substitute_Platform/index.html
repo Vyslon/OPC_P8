@@ -8,7 +8,7 @@
     <div class="col-lg-8 col-lg-offset-2 need_opa">
       <h1 class="text-center">Du gras, oui, mais de qualité!</h1>
       <h2 class="text-center">Trouvez un produit de substitution pour ceux que vous consommez
-      tous les jours.</h2>
+        tous les jours.</h2>
     </div>
     <div class="col-lg-4 col-lg-offset-4">
       <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="get" accept-charset="utf-8">
@@ -28,19 +28,22 @@
       <h2 class="text-center">Colette et Rémy</h2>
       <hr />
       <figure>
-        <p><strong>Colette Tatou</strong> : "Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche, du bon fromage de chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses au supermarché. Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant, que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le même prix !"</p>
+        <p><strong>Colette Tatou</strong> : "Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche, du bon fromage de chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses au
+          supermarché. Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant, que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le
+          même prix !"</p>
         <br />
         <br />
-        <p><strong>Remy</strong> : "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader, surtout dans les caves et les cuisines. Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les ingrédients de tous les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un aliment plus sain, je savais tout de suite où le trouver. L'idée de Pur Beurre était née !"</p>
+        <p><strong>Remy</strong> : "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader, surtout dans les caves et les cuisines. Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les
+          ingrédients de tous les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un aliment plus sain, je savais tout de suite où le trouver. L'idée de Pur Beurre était née !"</p>
       </figure>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-lg-2 col-lg-offset-2"">
-      <img src="{% static 'Substitute_Platform/img/colette-tatou-full.png' %}" alt="Colette Tatou">
+      <img src=" {% static 'Substitute_Platform/img/colette-tatou-full.png' %}" alt="Colette Tatou">
     </div>
     <div class="col-sm-6 col-sm-offset-3 col-lg-2"">
-      <img src="{% static 'Substitute_Platform/img/remy.png' %}" alt="Rémy" class="float-none">
+      <img src=" {% static 'Substitute_Platform/img/remy.png' %}" alt="Rémy" class="float-none">
     </div>
   </div>
   <div class="row">
@@ -48,7 +51,7 @@
       <h2 class="text-center">Contactez-nous !</h2>
     </div>
   </div>
-<div class="row" id="contact">
+  <div class="row" id="contact">
     <div class="col-lg-3 col-lg-offset-4">
       <address>
         <h2>&#xE942;</h2>
@@ -61,6 +64,6 @@
         <p><strong>mail@mail.com</strong></p>
       </address>
     </div>
-</div>
+  </div>
 
-{% endblock %}
+  {% endblock %}

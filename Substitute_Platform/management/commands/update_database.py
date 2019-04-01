@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         url_categories = "https://fr.openfoodfacts.org/categories.json"
         categories = requests.get(url_categories).json()
-        nbCategories = 50
+        nbCategories = 30
         nbByPages = 21
         p_id = 0
 
