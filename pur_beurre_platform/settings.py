@@ -75,8 +75,9 @@ if os.environ.get('ENV') == 'PRODUCTION':
     # ...
     # Simplified static file serving.
     # https://warehouse.python.org/project/whitenoise/
-    STATICFILES_STORAGE = ("whitenoise.storage."
-                           "CompressedManifestStaticFilesStorage")
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    # "whitenoise.storage."
+    #                        "CompressedManifestStaticFilesStorage")
 
 ROOT_URLCONF = 'pur_beurre_platform.urls'
 
