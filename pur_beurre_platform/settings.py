@@ -20,8 +20,10 @@ if os.environ.get('ENV') == 'PRODUCTION':
 
     # Static files settings
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    print("project root : {}".format(PROJECT_ROOT))
 
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+    print("static root : {}".format(STATIC_ROOT))
 
     # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (
