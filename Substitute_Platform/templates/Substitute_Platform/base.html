@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Pur Beurre</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/png" href="../../static/Substitute_Platform/img/logo_pur_beurre-favicon.png"/>
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
@@ -46,7 +46,7 @@
 
       .test {
         display: inline-block !important;
-        width: 35%;
+        width: 25em;
         margin-left: 50%;
         margin-right: 0;
         padding-right: 0;
@@ -127,10 +127,6 @@
         display: none;
       }
 
-      .searchBar {
-        width: 40%;
-      }
-
       i {
         margin-right: 5px;
       }
@@ -182,6 +178,7 @@
       .barre_nav {
         background-color: #C45525 !important;
         margin-top: 1em;
+        width: 20em;
       }
 
       input:focus {
@@ -260,23 +257,17 @@
           padding-top: 5%;
         }
 
-        .h2Row {
-          width: 90%;
-        }
-
         .center_carrot
         {
-          /* width: 24%; */
           width: 6em;
-}
+        }
 
         .myNavbar {
-          /* margin-right: 15%; */
           flex-direction: column;
         }
 
         .test {
-          width: 35em;
+          width: 95%;
           margin-left: 5%;
         }
 
@@ -298,6 +289,26 @@
         .form-check-label, .sizeSaved {
           font-size: 1.7em;
           padding-left: 3%;
+        }
+
+        .container-fluid {
+          margin: 0;
+          padding: 0;
+        }
+
+        .page-section {
+          max-width: 100%;
+          padding: 0;
+          margin: 0;
+        }
+
+        .pb {
+          width: 100%;
+          margin: 0;
+        }
+
+        .row {
+          margin-right: 0;
         }
       }
     </style>
@@ -321,7 +332,7 @@
               <div class="test">
                 <form class="text-center d-inline-block" action="{% url 'Substitute_Platform:substitutes_list' %}" method="get" accept-charset="utf-8">
                   <div class="form-group search">
-                    <input id="searchForm" class="form-control barre_nav searchBar" name="query" placeholder="chercher">
+                    <input id="searchForm" class="form-control barre_nav" name="query" placeholder="chercher">
                   </div>
                 </form>
               </div>
