@@ -19,19 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if os.environ.get('ENV') == 'PRODUCTION':
 
     PROJECT_ROOT = 'Substitute_Platform'
-    print("project root : {}".format(PROJECT_ROOT))
 
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-    print("static root : {}".format(STATIC_ROOT))
 
-    # Static files settings
-    # PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-    # print("project root : {}".format(PROJECT_ROOT))
-    #
-    # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-    # print("static root : {}".format(STATIC_ROOT))
-
-    # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (
         os.path.join(PROJECT_ROOT, 'static'),
     )
