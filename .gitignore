@@ -1,0 +1,140 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+pur_beurre_platform/Substitute_Platform/__init__.pyc
+pur_beurre_platform/Substitute_Platform/admin.pyc
+pur_beurre_platform/Substitute_Platform/models.pyc
+pur_beurre_platform/Substitute_Platform/urls.pyc
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+
+Substitute_Platform/__pycache__/
+Substitute_Platform/__init__.pyc
+Substitute_Platform/admin.pyc
+Substitute_Platform/forms.pyc
+Substitute_Platform/models.pyc
+Substitute_Platform/urls.pyc
+Substitute_Platform/views.pyc
+/Substitute_Platform/management/commands/__pycache__
+/Substitute_Platform/migrations/0001_initial.pyc
+/Substitute_Platform/migrations/0002_auto_20190130_1541.pyc
+/Substitute_Platform/migrations/0003_auto_20190131_0947.pyc
+/Substitute_Platform/migrations/0004_remove_products_description.pyc
+/Substitute_Platform/migrations/0005_auto_20190211_1000.pyc
+/Substitute_Platform/migrations/0006_products_image_url.pyc
+/Substitute_Platform/migrations/0007_auto_20190225_0846.pyc
+/Substitute_Platform/migrations/0008_auto_20190225_0859.pyc
+/Substitute_Platform/migrations/0009_auto_20190225_0907.pyc
+/Substitute_Platform/migrations/0010_auto_20190225_0939.pyc
+/Substitute_Platform/migrations/0011_auto_20190226_1057.pyc
+/Substitute_Platform/migrations/0012_auto_20190228_0916.pyc
+/Substitute_Platform/migrations/0013_auto_20190306_0938.pyc
+/Substitute_Platform/migrations/0014_auto_20190319_1448.pyc
+/Substitute_Platform/migrations/__pycache__
+/Substitute_Platform/migrations/__init__.pyc
+pur_beurre_platform/__init__.pyc
+pur_beurre_platform/__pycache__
+pur_beurre_platform/settings.pyc
+pur_beurre_platform/urls.pyc
+pur_beurre_platform/wsgi.pyc
