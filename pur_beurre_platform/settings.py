@@ -142,15 +142,13 @@ STATIC_URL = '/static/'
 
 if os.environ.get('ENV') == 'PRODUCTION':
 
-    PROJECT_ROOT = '/app/Substitute_Platform'
+    # PROJECT_ROOT = '/app/Substitute_Platform'
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+    STATIC_ROOT = '/app/Substitute_Platform/static'
     #static ??
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, 'static'),
-    )
-
-    print("{} =========== {} ========== {}".format(PROJECT_ROOT, STATIC_ROOT, STATICFILES_DIRS))
+    # STATICFILES_DIRS = (
+    #     os.path.join(PROJECT_ROOT, 'static'),
+    # )
 
     STATICFILES_STORAGE = ("whitenoise.storage."
                            "CompressedManifestStaticFilesStorage")
