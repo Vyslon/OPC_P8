@@ -144,7 +144,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 
     PROJECT_ROOT = 'Substitute_Platform'
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
     #static ??
     STATICFILES_DIRS = (
         os.path.join(PROJECT_ROOT, 'static'),
