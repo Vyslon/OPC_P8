@@ -26,23 +26,28 @@ def listing_substitutes(request):
         for elt in product_to_substitute.categories.all():
             categories_p.append(elt.id)
 
+        substituents = Products.objects.filter(
+            categories=categories_p[0]).filter(
+            categories=categories_p[1]).filter(
+            categories=categories_p[2]).order_by(
+            'nutrition_grade').distinct()[:6]
+
+        if len(substituents) < 6:
+            substituents = Products.objects.filter(
+                categories=categories_p[0]).filter(
+                categories=categories_p[1]).order_by(
+                'nutrition_grade').distinct()[:6]
+
+        if len(substituents) < 6:
+            substituents = Products.objects.filter(
+                       categories=categories_p[0]).order_by(
+                        'nutrition_grade').distinct()[:6]
+
         context = {
             'substituted': product_to_substitute,
-            'substituents': [
-                Products.objects.filter(categories=categories_p[0]).order_by(
-                    'nutrition_grade')[0],
-                Products.objects.filter(categories=categories_p[1]).order_by(
-                    'nutrition_grade')[0],
-                Products.objects.filter(categories=categories_p[2]).order_by(
-                    'nutrition_grade')[0],
-                Products.objects.filter(categories=categories_p[0]).order_by(
-                    'nutrition_grade')[1],
-                Products.objects.filter(categories=categories_p[1]).order_by(
-                    'nutrition_grade')[1],
-                Products.objects.filter(categories=categories_p[2]).order_by(
-                    'nutrition_grade')[1],
-            ],
+            'substituents': substituents,
         }
+
         return render(request, 'Substitute_Platform/substitutes_list.html',
                       context)
     else:
