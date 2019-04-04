@@ -142,7 +142,7 @@ STATIC_URL = '/static/'
 
 if os.environ.get('ENV') == 'PRODUCTION':
 
-    PROJECT_ROOT = '/app/pur_beurre_platform/Substitute_Platform'
+    PROJECT_ROOT = '/app/Substitute_Platform'
 
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
     #static ??
