@@ -26,9 +26,8 @@
         <div class="card-body">
           <p class="card-text">{{ substituent.name }}</p>
           {% if request.user.is_authenticated and substituent != None %}
-          <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
-
-          <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="post" accept-charset="utf-8" id="save-1" target="dummyframe">
+          
+          <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="post" accept-charset="utf-8" id="save-1">
             {% csrf_token %}
             <div class="form-group saveSubstitutes">
               <div class="form-check">

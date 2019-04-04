@@ -34,4 +34,4 @@ class platform_user(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ("substituted_product", "substituent_product")
+        unique_together = ("user", "substituted_product", "substituent_product")
