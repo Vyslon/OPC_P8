@@ -16,17 +16,6 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-if os.environ.get('ENV') == 'PRODUCTION':
-
-    PROJECT_ROOT = 'Substitute_Platform'
-
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, 'static'),
-    )
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -72,8 +61,7 @@ MIDDLEWARE = [
 #     # ...
 #     # Simplified static file serving.
 #     # https://warehouse.python.org/project/whitenoise/
-#     STATICFILES_STORAGE = ("whitenoise.storage."
-#                            "CompressedManifestStaticFilesStorage")
+
 
 ROOT_URLCONF = 'pur_beurre_platform.urls'
 
@@ -109,11 +97,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-if os.environ.get('ENV') == 'PRODUCTION':
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    # DATABASES['default'].update(db_from_env)
-    DATABASES = {'default': db_from_env}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -156,3 +139,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if os.environ.get('ENV') == 'PRODUCTION':
+
+    PROJECT_ROOT = 'Substitute_Platform'
+
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+    #static ??
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, 'static'),
+    )
+
+    STATICFILES_STORAGE = ("whitenoise.storage."
+                           "CompressedManifestStaticFilesStorage")
+                           
+    db_from_env = dj_database_url.config(conn_max_age=500)
+
+    DATABASES = {'default': db_from_env}
