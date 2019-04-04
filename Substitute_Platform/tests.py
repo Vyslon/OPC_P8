@@ -204,8 +204,8 @@ class SaveSubstitutePageTestCase(TestCase):
         substituted_name = self.substituted_product.name
         response = self.client.post(reverse(
             'Substitute_Platform:substitutes_list'), {
-            'checkbox': substituent_name,
-            'substituted_name': substituted_name,
+                'checkbox': substituent_name,
+                'substituted_name': substituted_name,
         })
         new_saved_substitutes = platform_user.objects.count()
         self.assertEqual(new_saved_substitutes, old_saved_substitutes + 1)
@@ -225,10 +225,10 @@ class RegisteringPageTestCase(TestCase):
         email = self.email
         response = self.client.post(reverse(
             'Substitute_Platform:registration'), {
-            'password': password,
-            'username': username,
-            'email': email,
-        })
+                'password': password,
+                'username': username,
+                'email': email,
+            })
         new_user_count = User.objects.count()
         user = auth.get_user(self.client)
         assert user.is_authenticated
@@ -246,8 +246,8 @@ class connectionPageTestCase(TestCase):
         username = 'temporary'
         response = self.client.post(reverse(
             'Substitute_Platform:authentication'), {
-            'username': username,
-            'password': password,
-        })
+                'username': username,
+                'password': password,
+            })
         user = auth.get_user(self.client)
         assert user.is_authenticated

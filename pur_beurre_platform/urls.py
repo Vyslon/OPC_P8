@@ -21,7 +21,7 @@ from Substitute_Platform import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^substitute/', include('Substitute_Platform.urls',
-        namespace='substitute')),
+                                 namespace='substitute')),
     url(r'^admin/', admin.site.urls),
 ]
 

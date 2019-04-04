@@ -57,12 +57,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-# if os.environ.get('ENV') == 'PRODUCTION':
-#     # ...
-#     # Simplified static file serving.
-#     # https://warehouse.python.org/project/whitenoise/
-
-
 ROOT_URLCONF = 'pur_beurre_platform.urls'
 
 TEMPLATES = [
@@ -104,19 +98,23 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': "django.contrib."
-        "auth.password_validation.UserAttributeSimilarityValidator",
+                "auth.password_validation."
+                "UserAttributeSimilarityValidator",
     },
     {
         'NAME': "django.contrib."
-        "auth.password_validation.MinimumLengthValidator",
+                "auth.password_validation."
+                "MinimumLengthValidator",
     },
     {
         'NAME': "django.contrib."
-        "auth.password_validation.CommonPasswordValidator",
+                "auth.password_validation."
+                "CommonPasswordValidator",
     },
     {
         'NAME': "django.contrib."
-        "auth.password_validation.NumericPasswordValidator",
+                "auth.password_validation."
+                "NumericPasswordValidator",
     },
 ]
 
@@ -145,14 +143,11 @@ if os.environ.get('ENV') == 'PRODUCTION':
     PROJECT_ROOT = '/app/Substitute_Platform'
 
     STATIC_ROOT = '/app/Substitute_Platform/static'
-    #static ??
+
     STATICFILES_DIRS = (
         os.path.join(PROJECT_ROOT, 'static'),
     )
 
-    # STATICFILES_STORAGE = ("whitenoise.storage."
-    #                        "CompressedManifestStaticFilesStorage")
+    DB_FROM_ENV = dj_database_url.config(conn_max_age=500)
 
-    db_from_env = dj_database_url.config(conn_max_age=500)
-
-    DATABASES = {'default': db_from_env}
+    DATABASES = {'default': DB_FROM_ENV}

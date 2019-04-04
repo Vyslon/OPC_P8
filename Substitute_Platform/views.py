@@ -1,18 +1,26 @@
 # coding: utf-8
 from django.shortcuts import render, get_object_or_404, redirect
-from Substitute_Platform.models import Products, Categories, platform_user
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm, AuthenticationForm
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseRedirect, Http404
+from Substitute_Platform.models import Products, Categories, platform_user
+from .forms import RegistrationForm, AuthenticationForm
+
 
 
 def index(request):
+    """
+    Index page
+    """
     return render(request, 'Substitute_Platform/index.html')
 
 
 def listing_substitutes(request):
+    """
+    Find 6 substitutes for a given product using nutritional score
+    substitutes and substitutent have in common at least 1 category, up to 3
+    """
     context = {}
     if request.method == 'GET':
         query = request.GET.get('query')
@@ -28,20 +36,20 @@ def listing_substitutes(request):
 
         substituents = Products.objects.filter(
             categories=categories_p[0]).filter(
-            categories=categories_p[1]).filter(
-            categories=categories_p[2]).order_by(
-            'nutrition_grade').distinct()[:6]
+                categories=categories_p[1]).filter(
+                    categories=categories_p[2]).order_by(
+                        'nutrition_grade').distinct()[:6]
 
         if len(substituents) < 6:
             substituents = Products.objects.filter(
                 categories=categories_p[0]).filter(
-                categories=categories_p[1]).order_by(
-                'nutrition_grade').distinct()[:6]
+                    categories=categories_p[1]).order_by(
+                        'nutrition_grade').distinct()[:6]
 
         if len(substituents) < 6:
             substituents = Products.objects.filter(
-                       categories=categories_p[0]).order_by(
-                        'nutrition_grade').distinct()[:6]
+                categories=categories_p[0]).order_by(
+                    'nutrition_grade').distinct()[:6]
 
         context = {
             'substituted': product_to_substitute,
@@ -71,6 +79,9 @@ def listing_substitutes(request):
 
 
 def detail(request, product_id):
+    """
+    Give details about a product
+    """
     product = get_object_or_404(Products, pk=product_id)
     context = {
         'product': product
@@ -79,6 +90,9 @@ def detail(request, product_id):
 
 
 def account(request):
+    """
+    Give informations about user actually connected
+    """
     if request.user.is_authenticated:
         user = User.objects.get(email=request.user.email)
         context = {
@@ -93,6 +107,9 @@ def account(request):
 
 
 def registration(request):
+    """
+    Page to register
+    """
     context = {}
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -117,21 +134,21 @@ def registration(request):
             context['errors'] = form.errors.items()
             return render(request, 'Substitute_Platform/registration.html',
                           context)
-    else:
-        if request.user.is_authenticated:
-            return redirect('Substitute_Platform:account')
-        else:
-            form = RegistrationForm()
+
+    if request.user.is_authenticated:
+        return redirect('Substitute_Platform:account')
+
+    form = RegistrationForm()
     context = {
         'form': form
     }
-    # VOIR URLS.PY ET CONFIGURER TOUT ÇA
-    # formulaire qui appelle cette vue?
-    # redirige vers la page account
     return render(request, 'Substitute_Platform/registration.html', context)
 
 
 def connect(request):
+    """
+    Page to connect to an account
+    """
     context = {}
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)
@@ -142,18 +159,18 @@ def connect(request):
             if user is not None:
                 login(request, user)
                 return redirect('Substitute_Platform:account')
-            else:
-                context = {
-                    'form': form
-                }
-                context['errors'] = form.errors.items()
-                return render(request, 'Substitute_Platform/connect.html',
-                              context)
+
+            context = {
+                'form': form
+            }
+            context['errors'] = form.errors.items()
+            return render(request, 'Substitute_Platform/connect.html',
+                          context)
     else:
         if request.user.is_authenticated:
             return redirect('Substitute_Platform:account')
-        else:
-            form = AuthenticationForm()
+
+    form = AuthenticationForm()
     context = {
         'form': form
     }
@@ -161,11 +178,17 @@ def connect(request):
 
 
 def disconnect(request):
+    """
+    Disconnect you from your account (do nothing if you are not connected)
+    """
     logout(request)
     return redirect('Substitute_Platform:index')
 
 
 def my_substitutes(request):
+    """
+    List all your couples substitued/substituent products
+    """
     if request.user.is_authenticated:
         user = User.objects.filter(username=request.user)[0]
         substitutes = platform_user.objects.filter(user=user).all()
@@ -178,4 +201,7 @@ def my_substitutes(request):
 
 
 def legal_notice(request):
+    """
+    Display legal notice about the website
+    """
     return render(request, 'Substitute_Platform/legal_notice.html')

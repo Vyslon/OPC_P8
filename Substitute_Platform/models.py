@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Categories(models.Model):
+    """
+    Categories of product from OpenFoodFacts
+    """
     name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
@@ -10,6 +13,9 @@ class Categories(models.Model):
 
 
 class Products(models.Model):
+    """
+    Products from OpenFoodFacts
+    """
     name = models.CharField(max_length=100, unique=True)
     stores = models.CharField(max_length=100)
     nutrition_grade = models.CharField(max_length=1)
@@ -22,6 +28,10 @@ class Products(models.Model):
 
 
 class platform_user(models.Model):
+    """
+    For each user, it's a link between a substituted product (for which they
+    asked for substitutes) and it's substitutes chosed by the user
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     substituted_product = models.ForeignKey(
         Products,
@@ -34,4 +44,9 @@ class platform_user(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
+        """
+        Unique index to have only 1 column substituted product/substiuent
+        product for each user (so you can't save more than 1 time the same
+        couple)
+        """
         unique_together = ("user", "substituted_product", "substituent_product")

@@ -9,6 +9,9 @@ class Command(BaseCommand):
     help = 'Update/Fulfill database content using OpenFoodFacts API'
 
     def handle(self, *args, **options):
+        """
+        Update or Fulfill the database using OpenFoodFacts API
+        """
         url_categories = "https://fr.openfoodfacts.org/categories.json"
         categories = requests.get(url_categories).json()
         nbCategories = 30

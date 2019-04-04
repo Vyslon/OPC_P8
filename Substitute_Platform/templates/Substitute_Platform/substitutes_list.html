@@ -26,7 +26,7 @@
         <div class="card-body">
           <p class="card-text">{{ substituent.name }}</p>
           {% if request.user.is_authenticated and substituent != None %}
-          
+
           <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="post" accept-charset="utf-8" id="save-1">
             {% csrf_token %}
             <div class="form-group saveSubstitutes">
@@ -36,7 +36,6 @@
                   Sauvegarder
                 </label>
               </div>
-              <!-- Sauvegarder -->
               <p id="textsaved-1" class="hide sizeSaved"><i class="far fa-save"></i>Sauvegarder</p>
               <input type="hidden" id="substituted" name="substituted_name" value="{{ substituted.name }}">
               <input type="hidden" id="query" name="query_value" value="{{ request.GET.query }}">

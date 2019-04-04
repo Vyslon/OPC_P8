@@ -1,7 +1,9 @@
 from django import forms
 
-
 class RegistrationForm(forms.Form):
+    """
+    Forms for registration, used by "registration" view
+    """
     username = forms.CharField(label="Nom d'utilisateur",
                                max_length=150,
                                widget=forms.TextInput(attrs={'class':
@@ -23,6 +25,9 @@ class RegistrationForm(forms.Form):
 
 
 class AuthenticationForm(forms.Form):
+    """
+    Forms for authentication, used by "connect" view
+    """
     username = forms.CharField(label="Nom d'utilisateur",
                                max_length=150,
                                widget=forms.TextInput(attrs={'class':
