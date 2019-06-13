@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseRedirect, Http404
 from Substitute_Platform.models import Products, Categories, platform_user
-from .forms import RegistrationForm, AuthenticationForm
+from .forms import RegistrationForm, AuthenticationForm, ModificationForm
 
 
 
@@ -91,8 +91,10 @@ def detail(request, product_id):
 
 def account(request):
     """
-    Give informations about user actually connected
+    Give informations about user actually connected and gives possibility
+    to change mail and password
     """
+
     if request.user.is_authenticated:
         user = User.objects.get(email=request.user.email)
         context = {
@@ -100,8 +102,45 @@ def account(request):
             'email': user.email,
             'request': request
         }
+        if request.method == 'POST':
+            form = ModificationForm(request.POST)
+            if form.is_valid():
+                password = form.cleaned_data['password']
+                email = form.cleaned_data['email']
+                try:
+                    with transaction.atomic():
+                        print('password : {} email : {}'.format(password, email))
+                        if len(password):
+                            user.set_password(password)
+                            user.save()
+                            userConnect = authenticate(request,
+                                                         username=user.username,
+                                                         password=password)
+                            login(request, user)
+                        if len(email):
+                            user.email = email
+                            user.save()
+
+                        return redirect('Substitute_Platform:account')
+                except IntegrityError:
+                    form.errors['internal'] = ("Erreur interne, "
+                                               "merci de réitérer votre requête")
+            else:
+                context = {
+                    'form': form
+                }
+                context['errors'] = form.errors.items()
+
     else:
         return redirect('Substitute_Platform:authentication')
+
+    form = ModificationForm()
+    context = {
+        'form': form,
+        'pseudo': user.username,
+        'email': user.email,
+        'request': request
+    }
 
     return render(request, 'Substitute_Platform/account.html', context)
 

@@ -40,3 +40,22 @@ class AuthenticationForm(forms.Form):
                                                                  'form-control'}),
                                required=True
                                )
+
+class ModificationForm(forms.Form):
+    """
+    Forms for modification of informations linked to an account,
+    used by "account" view
+    """
+
+    password = forms.CharField(label="Mot de passe",
+                               max_length=50,
+                               widget=forms.PasswordInput(attrs={'class':
+                                                                 'form-control'}),
+                               required=False
+                               )
+    email = forms.EmailField(label="e-mail",
+                             max_length=150,
+                             widget=forms.EmailInput(attrs={'class':
+                                                            'form-control'}),
+                             required=False
+                             )

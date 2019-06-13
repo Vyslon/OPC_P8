@@ -108,10 +108,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
-Substitute_Platform/__pycache__/
-Substitute_Platform/*.pyc
-Substitute_Platform/management/commands/__pycache__
-Substitute_Platform/migrations/*.pyc
-pur_beurre_platform/*.pyc
-pur_beurre_platform/__pycache__
+*.pyc
