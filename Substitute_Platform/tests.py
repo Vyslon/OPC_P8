@@ -110,6 +110,7 @@ class AccountRegistrationAuthenticationPageTestCase(TestCase):
     def setUp(self):
         user = User.objects.create_user('temporary', 'temporary@gmail.com',
                                         'temporary')
+        self.user = User.objects.get(username=user.username)
 
     def test_account_page_returns_200(self):
         self.client.login(username='temporary', password='temporary')
@@ -150,6 +151,48 @@ class AccountRegistrationAuthenticationPageTestCase(TestCase):
         response = self.client.get(reverse(
             'Substitute_Platform:disconnection'))
         self.assertEqual(response.status_code, 302)
+
+    def test_account_change_mail(self):
+        self.client.login(username='temporary', password='temporary')
+        newMail = "newmail@gmail.com"
+        response = self.client.post(reverse(
+            'Substitute_Platform:account'), {
+                'new_password1': "",
+                'new_password2': "",
+                'email': newMail
+        })
+        self.user.refresh_from_db()
+        self.assertEqual(newMail, self.user.email)
+
+    def test_account_change_password(self):
+        self.client.login(username='temporary', password='temporary')
+        newPassword = "Newpassword1"
+        response = self.client.post(reverse(
+            'Substitute_Platform:account'), {
+                'new_password1': newPassword,
+                'new_password2': newPassword,
+                'email': ""
+        })
+        self.user.refresh_from_db()
+        assert self.user.check_password(newPassword)
+        user = auth.get_user(self.client)
+        assert user.is_authenticated
+
+    def test_account_change_both(self):
+        self.client.login(username='temporary', password='temporary')
+        newMail = "newmail@gmail.com"
+        newPassword = "Newpassword2"
+        response = self.client.post(reverse(
+            'Substitute_Platform:account'), {
+                'new_password1': newPassword,
+                'new_password2': newPassword,
+                'email': newMail
+        })
+        self.user.refresh_from_db()
+        self.assertEqual(newMail, self.user.email)
+        assert self.user.check_password(newPassword)
+        user = auth.get_user(self.client)
+        assert user.is_authenticated
 
 
 class LegalNoticePageTestCase(TestCase):

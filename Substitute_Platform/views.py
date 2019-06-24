@@ -1,12 +1,12 @@
 # coding: utf-8
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import SetPasswordForm
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseRedirect, Http404
 from Substitute_Platform.models import Products, Categories, platform_user
 from .forms import RegistrationForm, AuthenticationForm, ModificationForm
-
 
 
 def index(request):
@@ -96,47 +96,73 @@ def account(request):
     """
 
     if request.user.is_authenticated:
-        user = User.objects.get(email=request.user.email)
+        user = User.objects.get(username=request.user.username)
         context = {
             'pseudo': user.username,
             'email': user.email,
             'request': request
         }
         if request.method == 'POST':
-            form = ModificationForm(request.POST)
-            if form.is_valid():
-                password = form.cleaned_data['password']
-                email = form.cleaned_data['email']
-                try:
-                    with transaction.atomic():
-                        print('password : {} email : {}'.format(password, email))
-                        if len(password):
-                            user.set_password(password)
-                            user.save()
-                            userConnect = authenticate(request,
-                                                         username=user.username,
-                                                         password=password)
-                            login(request, user)
-                        if len(email):
+            if len(request.POST['email']) and (not len(request.POST['new_password1'])):
+                formMail = ModificationForm(request.POST)
+                if formMail.is_valid():
+                    email = formMail.cleaned_data['email']
+                    try:
+                        with transaction.atomic():
                             user.email = email
                             user.save()
 
-                        return redirect('Substitute_Platform:account')
-                except IntegrityError:
-                    form.errors['internal'] = ("Erreur interne, "
-                                               "merci de réitérer votre requête")
+                            return redirect('Substitute_Platform:account')
+                    except IntegrityError:
+                        form.errors['internal'] = ("Erreur interne, "
+                                                   "merci de réitérer votre requête")
+            elif len(request.POST['new_password1']) and (not len(request.POST['email'])):
+                formPw = SetPasswordForm(user, data=request.POST)
+                if formPw.is_valid():
+                    password = formPw.clean_new_password2()
+                    try:
+                        with transaction.atomic():
+                            formPw.save()
+                            login(request, user)
+
+                            return redirect('Substitute_Platform:account')
+                    except IntegrityError:
+                        form.errors['internal'] = ("Erreur interne, "
+                                                   "merci de réitérer votre requête")
+
+            elif len(request.POST['new_password1']) and len(request.POST['email']):
+                formMail = ModificationForm(request.POST)
+                formPw = SetPasswordForm(user, data=request.POST)
+                if formPw.is_valid() and formMail.is_valid():
+                    email = formMail.cleaned_data['email']
+                    password = formPw.clean_new_password2()
+                    try:
+                        with transaction.atomic():
+                            formPw.save()
+                            login(request, user)
+                            user.email = email
+                            user.save()
+
+                            return redirect('Substitute_Platform:account')
+                    except IntegrityError:
+                        form.errors['internal'] = ("Erreur interne, "
+                                                   "merci de réitérer votre requête")
             else:
                 context = {
-                    'form': form
+                    'errorsPw': formPw.errors.items(),
+                    'errorsMail': formMail.errors.items()
                 }
-                context['errors'] = form.errors.items()
 
     else:
         return redirect('Substitute_Platform:authentication')
 
-    form = ModificationForm()
+    formPw = SetPasswordForm(request.POST)
+    formPw.fields['new_password1'].required = False
+    formPw.fields['new_password2'].required = False
+    formMail = ModificationForm(request.POST)
     context = {
-        'form': form,
+        'formPw': formPw,
+        'formMail': formMail,
         'pseudo': user.username,
         'email': user.email,
         'request': request
