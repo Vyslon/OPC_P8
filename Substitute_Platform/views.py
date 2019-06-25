@@ -72,6 +72,7 @@ def listing_substitutes(request, product_id):
     return render(request, 'Substitute_Platform/substitutes_list.html',
                   context)
 
+
 def saving_substitutes(request):
     with transaction.atomic():
         try:
