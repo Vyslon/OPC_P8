@@ -16,66 +16,80 @@ def index(request):
     return render(request, 'Substitute_Platform/index.html')
 
 
-def listing_substitutes(request):
+def finding_product(request):
+    """
+    Find the right product from a string
+    """
+    context = {}
+    query = request.GET.get('query')
+    query = " ".join(query.split())
+    try:
+        product_to_substitute = Products.objects.filter(
+            name__icontains=query)
+    except IndexError:
+        raise Http404()
+    possible_products = product_to_substitute[:50]
+    context = {
+        'products': possible_products
+    }
+    return render(request, 'Substitute_Platform/possible_products.html',
+                  context)
+
+
+def listing_substitutes(request, product_id):
     """
     Find 6 substitutes for a given product using nutritional score
     substitutes and substitutent have in common at least 1 category, up to 3
     """
     context = {}
-    if request.method == 'GET':
-        query = request.GET.get('query')
-        query = " ".join(query.split())
-        try:
-            product_to_substitute = Products.objects.filter(
-                name__icontains=query)[0]
-        except IndexError:
-            raise Http404()
-        categories_p = []
-        for elt in product_to_substitute.categories.all():
-            categories_p.append(elt.id)
+    product_to_substitute = get_object_or_404(Products, pk=product_id)
+    categories_p = []
+    for elt in product_to_substitute.categories.all():
+        categories_p.append(elt.id)
 
-        substituents = Products.objects.filter(
-            categories=categories_p[0]).filter(
-                categories=categories_p[1]).filter(
-                    categories=categories_p[2]).order_by(
-                        'nutrition_grade').distinct()[:6]
-
-        if len(substituents) < 6:
-            substituents = Products.objects.filter(
-                categories=categories_p[0]).filter(
-                    categories=categories_p[1]).order_by(
-                        'nutrition_grade').distinct()[:6]
-
-        if len(substituents) < 6:
-            substituents = Products.objects.filter(
-                categories=categories_p[0]).order_by(
+    substituents = Products.objects.filter(
+        categories=categories_p[0]).filter(
+            categories=categories_p[1]).filter(
+                categories=categories_p[2]).order_by(
                     'nutrition_grade').distinct()[:6]
 
-        context = {
-            'substituted': product_to_substitute,
-            'substituents': substituents,
-        }
+    if len(substituents) < 6:
+        substituents = Products.objects.filter(
+            categories=categories_p[0]).filter(
+                categories=categories_p[1]).order_by(
+                    'nutrition_grade').distinct()[:6]
 
-        return render(request, 'Substitute_Platform/substitutes_list.html',
-                      context)
-    else:
-        with transaction.atomic():
-            try:
-                user = get_object_or_404(User, username=request.user)
-                sbent_name = request.POST.get('checkbox')
-                sbted_name = request.POST.get('substituted_name')
-                substituent = Products.objects.filter(name=sbent_name)[0]
-                substituted = Products.objects.filter(name=sbted_name)[0]
-                plat_user = platform_user.objects.create(
-                    user=user,
-                    substituted_product=substituted,
-                    substituent_product=substituent)
-                plat_user.substituted_product_id = substituted.id
-                plat_user.substituent_product.id = substituent.id
-                query_v = request.POST.get('query_value')
-            except IntegrityError:
-                query_v = request.POST.get('query_value')
-        return HttpResponseRedirect("")
+    if len(substituents) < 6:
+        substituents = Products.objects.filter(
+            categories=categories_p[0]).order_by(
+                'nutrition_grade').distinct()[:6]
+
+    context = {
+        'substituted': product_to_substitute,
+        'substituents': substituents,
+    }
+
+    return render(request, 'Substitute_Platform/substitutes_list.html',
+                  context)
+
+def saving_substitutes(request):
+    with transaction.atomic():
+        try:
+            user = get_object_or_404(User, username=request.user)
+            sbent_name = request.POST.get('checkbox')
+            sbted_name = request.POST.get('substituted_name')
+            substituent = Products.objects.filter(name=sbent_name)[0]
+            substituted = Products.objects.filter(name=sbted_name)[0]
+            plat_user = platform_user.objects.create(
+                user=user,
+                substituted_product=substituted,
+                substituent_product=substituent)
+            plat_user.substituted_product_id = substituted.id
+            plat_user.substituent_product.id = substituent.id
+            query_v = request.POST.get('query_value')
+        except IntegrityError:
+            query_v = request.POST.get('query_value')
+    return HttpResponseRedirect("")
 
 
 def detail(request, product_id):

@@ -96,12 +96,12 @@ class SubstitutesListPageTestCase(TestCase):
 
     def test_SubstitutesList_page_returns_200(self):
         response = self.client.get(reverse(
-            'Substitute_Platform:substitutes_list') + '?query=chips')
+            'Substitute_Platform:substitutes_list', args=[5]))
         self.assertEqual(response.status_code, 200)
 
     def test_SubstitutesList_page_returns_404(self):
         response = self.client.get(reverse(
-            'Substitute_Platform:substitutes_list') + '?query=coca')
+            'Substitute_Platform:substitutes_list', args=[312]))
         self.assertEqual(response.status_code, 404)
 
 
@@ -246,7 +246,7 @@ class SaveSubstitutePageTestCase(TestCase):
         substituent_name = self.substituent_product.name
         substituted_name = self.substituted_product.name
         response = self.client.post(reverse(
-            'Substitute_Platform:substitutes_list'), {
+            'Substitute_Platform:substitute_save'), {
                 'checkbox': substituent_name,
                 'substituted_name': substituted_name,
         })
@@ -294,3 +294,38 @@ class connectionPageTestCase(TestCase):
             })
         user = auth.get_user(self.client)
         assert user.is_authenticated
+
+class ProductSearchPageTestCase(TestCase):
+
+    def setUp(self):
+            prod1 = Products.objects.create(
+                name='Nutella GR800 Gran Formato',
+                stores='',
+                nutrition_grade='e',
+                url_openfoodfact='url',
+                image_url='url',
+            )
+            prod2 = Products.objects.create(
+                name='Nutella',
+                stores='',
+                nutrition_grade='e',
+                url_openfoodfact='url',
+                image_url='url',
+            )
+            prod3 = Products.objects.create(
+                name='Nutella Barquette',
+                stores='',
+                nutrition_grade='e',
+                url_openfoodfact='url',
+                image_url='url',
+            )
+
+            def test_product_search_page_returns_200(self):
+                response = self.client.get(reverse(
+                    'Substitute_Platform:substitutes_list') + '?query=nutella')
+                self.assertEqual(response.status_code, 200)
+
+            def test_product_search_page_returns_404(self):
+                response = self.client.get(reverse(
+                    'Substitute_Platform:substitutes_list') + '?query=odbievd')
+                self.assertEqual(response.status_code, 404)

@@ -1,0 +1,30 @@
+{% extends 'Substitute_Platform/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="col-lg-12 myblock">
+  <h1>Sélectionnez votre produit</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom Produit</th>
+        <th>Indice nutritionnel</th>
+        <th>Page Produit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for elt in products %}
+      <tr>
+        <!-- Remplacer les url par des substitutes list link -->
+        <td><a href="{% url 'Substitute_Platform:substitutes_list' elt.id %}">{{ elt.name }}</a></td>
+        <td><a href="{% url 'Substitute_Platform:detail' elt.id %}">{{ elt.nutrition_grade.upper }}</a></td>
+        <td><a href="{% url 'Substitute_Platform:detail' elt.id %}">ICI</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% endblock %}

@@ -27,7 +27,7 @@
           <p class="card-text">{{ substituent.name }}</p>
           {% if request.user.is_authenticated and substituent != None %}
 
-          <form action="{% url 'Substitute_Platform:substitutes_list' %}" method="post" accept-charset="utf-8" id="save-1">
+          <form action="{% url 'Substitute_Platform:substitute_save' %}" method="post" accept-charset="utf-8" id="save-1">
             {% csrf_token %}
             <div class="form-group saveSubstitutes">
               <div class="form-check">
